@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | Heavenly Lounge{% endblock %}
+
+{% block content %}
+  <section class="page-head">
+    <span class="badge">Members lounge</span>
+    <h1>Welcome, {{ user.get_username }}!</h1>
+    <p class="lead">You are signed in. This page is only visible to authenticated members.</p>
+  </section>
+
+  <section class="grid stats" aria-label="Your account">
+    <article class="card">
+      <p class="meta">Username</p>
+      <h2>{{ user.username }}</h2>
+    </article>
+    <article class="card">
+      <p class="meta">Member since</p>
+      <h2>{{ user.date_joined|date:"M d, Y" }}</h2>
+    </article>
+    <article class="card">
+      <p class="meta">Access level</p>
+      <h2>{% if user.is_superuser %}Administrator{% else %}Member{% endif %}</h2>
+    </article>
+  </section>
+
+  <section aria-labelledby="news-heading" class="section-gap">
+    <h2 id="news-heading">Lounge Announcements</h2>
+    <div class="grid">
+      {% for a in announcements %}
+        <article class="card">
+          <h3>{{ a.title }}</h3>
+          <p>{{ a.detail }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
+

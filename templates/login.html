@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign in | Heavenly Lounge{% endblock %}
+
+{% block content %}
+  <section class="auth-wrap">
+    <div class="auth-intro">
+      <span class="badge">Members only</span>
+      <h1>Welcome back!</h1>
+      <p class="lead">Sign in to enter the lounge.</p>
+    </div>
+
+    <div class="card">
+      <form method="post" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if error %}
+          <div class="alert alert-error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <div class="field">
+          <label for="id_username">Username</label>
+          <input type="text" id="id_username" name="username" autocomplete="username" autofocus required>
+        </div>
+        <div class="field">
+          <label for="id_password">Password</label>
+          <input type="password" id="id_password" name="password" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="btn btn-block">Sign in</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}
